@@ -1,0 +1,13 @@
+{
+  "name": "study",
+  "version": "0.0.1",
+  "description": "A nodejs project",
+  "scripts": {},
+  "dependencies": {
+    "mysql2": "^2.0.1",
+    "sequelize": "^5.21.2"
+  },
+  "devDependencies": {
+    "mysql": "^2.17.1"
+  }
+}
