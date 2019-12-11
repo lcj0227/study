@@ -17,12 +17,16 @@ router.all('/wechat', wechat(conf).middleware(
     }
 ));
 
-// const tokenCache = {
-//     access_token:'',
-//     updateTime:Date.now(),
-//     expires_in:7200
-// }
 
+
+
+
+
+// const tokenCache = {
+//   access_token:'',
+//   updateTime:Date.now(),
+//   expires_in:7200
+// }
 // router.get('/getTokens',async ctx => {
 //     const wxDomain =  `https://api.weixin.qq.com`
 //     const path = `/cgi-bin/token`
@@ -34,6 +38,7 @@ router.all('/wechat', wechat(conf).middleware(
 //     })
 //     ctx.body = res.data
 // })
+//
 
 // router.get('/getFollowers',async ctx => {
 //     const url = `https://api.weixin.qq.com/cgi-bin/user/get?access_token=${tokenCache.access_token}`
@@ -41,6 +46,12 @@ router.all('/wechat', wechat(conf).middleware(
 //     console.log('getFollowers:',res)
 //     ctx.body = res.data
 // })
+
+
+
+
+
+
 const { ServerToken } = require('./mongoose');
 
 const WechatAPI = require('co-wechat-api');
@@ -57,7 +68,6 @@ router.get('/getFollowers', async ctx => {
   res = await api.batchGetUsers(res.data.openid, 'zh_CN');
   ctx.body = res
 });
-
 
 
 app.use(router.routes()); /*启动路由*/
