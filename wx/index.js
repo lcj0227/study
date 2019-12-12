@@ -1,26 +1,21 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-const static = require('koa-static');
-const bodyParser = require('koa-bodyparser');
-const app = new Koa();
-const conf = require('./conf');
-app.use(bodyParser());
-const router = new Router();
-app.use(static(__dirname + '/'));
-const axios = require('axios');
-
-const wechat = require('co-wechat');
-router.all('/wechat', wechat(conf).middleware(
-    async message => {
-      console.log('wechat:', message);
-      return 'Hello World ' + message.Content
-    }
-));
-
-
-
-
-
+// const Koa = require('koa');
+// const Router = require('koa-router');
+// const static = require('koa-static');
+// const bodyParser = require('koa-bodyparser');
+// const app = new Koa();
+// const conf = require('./conf');
+// app.use(bodyParser());
+// const router = new Router();
+// app.use(static(__dirname + '/'));
+// const axios = require('axios');
+//
+// const wechat = require('co-wechat');
+// router.all('/wechat', wechat(conf).middleware(
+//     async message => {
+//       console.log('wechat:', message);
+//       return 'Hello World ' + message.Content
+//     }
+// ));
 
 // const tokenCache = {
 //   access_token:'',
@@ -49,8 +44,24 @@ router.all('/wechat', wechat(conf).middleware(
 
 
 
+const Koa = require('koa');
+const Router = require('koa-router');
+const static = require('koa-static');
+const bodyParser = require('koa-bodyparser');
+const app = new Koa();
+const conf = require('./conf');
+app.use(bodyParser());
+const router = new Router();
+app.use(static(__dirname + '/'));
+const axios = require('axios');
 
-
+const wechat = require('co-wechat');
+router.all('/wechat', wechat(conf).middleware(
+    async message => {
+        console.log('wechat:', message);
+        return 'Hello World ' + message.Content
+    }
+));
 
 const { ServerToken } = require('./mongoose');
 
@@ -66,10 +77,10 @@ const api = new WechatAPI(
 router.get('/getFollowers', async ctx => {
   let res = await api.getFollowers();
   res = await api.batchGetUsers(res.data.openid, 'zh_CN');
-  ctx.body = res
+  ctx.body = res;
 });
 
 
-app.use(router.routes()); /*启动路由*/
+app.use(router.routes());
 app.use(router.allowedMethods());
 app.listen(3000);

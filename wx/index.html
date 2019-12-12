@@ -10,23 +10,54 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/cube-ui/lib/cube.min.css">
     <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #app{
+            width:100%;
+            height:100%;
+            background:rgba(41,50,62,1);
+            overflow: hidden;
+        }
+        div{
+            text-align: center;
+        }
+        .btn{
+            margin-top: 40px;
+        }
         .cube-btn {
-            margin: 10px 0;
+            display: inline-block;
+            width:119px;
+            background:linear-gradient(135deg,rgba(107,255,199,1) 0%,rgba(91,203,147,1) 100%);
+            box-shadow:0px 10px 20px 0px rgba(41,50,62,1),0px 5px 10px 0px rgba(91,203,147,0.5);
+            border-radius:4px;
+            color: #29323E;
+
+        }
+        .list{
+            text-align: center;
+            color:rgba(98,187,255,1);
+            line-height: 80px;
         }
     </style>
 </head>
 
 <body>
 <div id="app">
-    <cube-button @click='getTokens'>getTokens</cube-button>
-    <cube-button @click='getFollowers'>getFollowers</cube-button>
+    <!--<cube-button @click='getTokens'>getTokens</cube-button>-->
+    <div class="btn">
+        <cube-button @click='getFollowers'>getFollowers</cube-button>
+    </div>
+    <div class="list" v-for="i in followers">{{i.country}}-{{i.province}}-{{i.city}}-{{i.nickname}}</div>
 
 </div>
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-            value: 'input'
+            value: 'input',
+            followers: []
         },
 
         methods: {
@@ -36,12 +67,10 @@
             },
             async getFollowers(){
                 const res = await axios.get('/getFollowers');
-                console.log('res',res)
+                console.log('res',res);
+                app.$data.followers = res.data.user_info_list;
             }
-        },
-        mounted: function () {
-
-        },
+        }
     });
 </script>
 </body>
